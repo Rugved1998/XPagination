@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-export default function App()  {
+export default function App() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage] = useState(10);
@@ -22,21 +22,32 @@ export default function App()  {
     }
   };
 
+  useEffect(() => {
+    // Handle async nature of state update
+    if (data.length > 0) {
+      const lastPage = Math.ceil(data.length / perPage);
+      if (currentPage > lastPage) {
+        setCurrentPage(lastPage);
+      }
+    }
+  }, [data, currentPage, perPage]);
+
   const indexOfLastData = currentPage * perPage;
   const indexOfFirstData = indexOfLastData - perPage;
   const currentData = data.slice(indexOfFirstData, indexOfLastData);
 
   const nextPage = () => {
     if (currentPage < Math.ceil(data.length / perPage)) {
-      setCurrentPage(currentPage + 1);
+      setCurrentPage((prevPage) => prevPage + 1);
     }
   };
 
   const prevPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      setCurrentPage((prevPage) => prevPage - 1);
     }
   };
+
   const pageStyle={
     margin:"30px",
     backgroundColor:"#DCDCDC",
