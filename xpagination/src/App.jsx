@@ -97,7 +97,7 @@ export default function App() {
       </table>
        <br />     
       <div style={footerStyle}>
-        <button data-testid="prevButton" style={colorStyle} onClick={prevPage} disabled={currentPage === 1}>
+        <button data-testid="prevButton" style={colorStyle} onClick={prevPage}>
           Previous
         </button>
         <span data-testid="currentPage" style={colorStyle}>Page {currentPage}</span>
